@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax | JSON File</title>
+</head>
+<body>
+    <button id="btnUser">Get User</button>
+    <button id="btnUsers">Get Users</button>
+    <div id="response"></div>
+    <script>
+        // select btnUser et btnUsers
+        let btnUser = document.querySelector('#btnUser');
+        let btnUsers = document.querySelector('#btnUsers');
+        // event
+        btnUser.addEventListener('click', loadUser);
+        //function loadUser
+        function loadUser(){
+            // xhr
+            let xhr = new XMLHttpRequest();
+            // open
+            xhr.open('GET', 'user.json', true);
+            // onload
+            xhr.onload = function(){
+                if(this.status === 200){
+                    let user = JSON.parse(this.responseText);
+                    let output = '<h1>User</h1>';
+                    output += `
+                        <ul>
+                            <li>${user.id}</li>    
+                            <li>${user.name}</li>    
+                            <li>${user.email}</li>    
+                        </ul>
+                    `;
+                    document.querySelector('#response').innerHTML = output;
+                }
+            }
+            // xhr send
+            xhr.send();
+        }
+        //for Users
+        btnUsers.addEventListener('click', loadUsers);
+        //function loadUser
+        function loadUsers(){
+            // xhr
+            let xhr = new XMLHttpRequest();
+            // open
+            xhr.open('GET', 'users.json', true);
+            // onload
+            xhr.onload = function(){
+                if(this.status === 200){
+                    let users = JSON.parse(this.responseText);
+                    let output = '<h1>Users</h1>';
+                    for(let user of users){
+                        output += `
+                        <hr/>
+                            <ul>
+                                <li>${user.id}</li>    
+                                <li>${user.name}</li>    
+                                <li>${user.email}</li>    
+                            </ul>
+                        `;
+                    }
+                    document.querySelector('#response').innerHTML = output;
+                }
+            }
+            // xhr send
+            xhr.send();
+        }
+    </script>
+</body>
+</html>

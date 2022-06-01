@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax | API External</title>
+    <style>
+        .user{
+            display: flex;
+            background-color: rgb(220, 211, 211);
+            margin-bottom: 5px;
+            padding: 5px;
+            border-radius: 5px;
+            color: #fff;
+        }
+        .user img{
+            border-radius: 50%;
+        }
+        button{
+            border: none;
+            background-color: #333;
+            color: #fff;
+            height: 50px;
+            width: 200px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn" title="clique pour afficher les utilisateurs">GET Github API</button>
+    <div id="response"></div>
+    <script>
+        // select
+        let btn = document.querySelector('#btn');
+        // event
+        btn.addEventListener('click', loadApi);
+        // function loadApi
+        function loadApi(){
+            // xhr 
+            let xhr = new XMLHttpRequest();
+            // open
+            xhr.open('GET', 'https://api.github.com/users', true);
+            // onload
+            xhr.onload = function(){
+                if(this.status === 200){
+                    let users = JSON.parse(this.responseText);
+                    console.log(users);
+                    let output = '<h1>All Users Github</h1><hr/>';
+                    for(let user of users){
+                        output += '<div class="user">'+
+                                    '<img src='+user.avatar_url+' alt="" width="64" height="64" />'+
+                                        '<ul>'+
+                                            '<li>ID:'+user.id+'</li>'+
+                                            '<li>LOGIN'+user.login+'</li>'+
+                                        '</ul>'+
+                                    '</div>';
+                    }
+                   document.querySelector('#response').innerHTML = output;
+                }
+            }
+            // xhr send
+            xhr.send();
+        }
+    </script>
+</body>
+</html>

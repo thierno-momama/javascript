@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax | select in BDD</title>
+</head>
+<body>
+    <button id="btn">READ DATA in BDD</button>
+    <div id="response"></div>
+    <script>
+        //select 
+        let btn = document.querySelector('#btn');
+        //event
+        btn.addEventListener('click', loadData);
+        //function loadData
+        function loadData(){
+            // xhr 
+            let xhr = new XMLHttpRequest();
+            // open
+            xhr.open('GET', 'select.php', true);
+            // onload
+            xhr.onload = function(){
+                if(this.status === 200){
+                    let users = JSON.parse(this.responseText);
+                    let output = '<h1>Users</h1>';
+                    for(let user of users){
+                        output += `
+                            <hr/>
+                            <ul>
+                                <li>${user.id}</li>    
+                                <li>${user.name}</li>    
+                            </ul>
+                        `;
+                    }
+                    document.querySelector('#response').innerHTML = output;
+                }
+            }
+            // xhr send
+            xhr.send();
+        }
+    </script>
+</body>
+</html>

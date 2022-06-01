@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch | Text File</title>
+</head>
+<body>
+    <button id="btn">Get Text File</button>
+    <div id="response"></div>
+    <script>
+        // select btn
+        let btn = document.querySelector('#btn');
+        //event
+        btn.addEventListener('click', loadText);
+        // function loadtext
+        function loadText(){
+            //xhr 
+            let xhr = new XMLHttpRequest();
+            // xhr open 
+            xhr.open('GET', 'sample.txt', true);
+            // xhr onload
+            xhr.onload = function(){
+                if(this.status === 200){
+                    document.querySelector('#response').innerHTML = this.responseText;
+                }
+            }
+            //xhr send
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
