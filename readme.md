@@ -1,2 +1,2 @@
 # API Fake
-[GitHub Pages](https://jsonplaceholder.typicode.com/)
+[Fake API](https://jsonplaceholder.typicode.com/)
